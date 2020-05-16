@@ -1,17 +1,14 @@
 package br.com.javaaps.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.javaaps.models.Aluno;
+import br.com.javaaps.services.AlunoService;
 import br.com.javaaps.util.ConsoleUtils;
-import br.com.javaaps.util.FileUtils;
 
 public class AlunosSubmenu extends Submenu {
-
-	public AlunosSubmenu() {
-		fileUtils = new FileUtils("alunos.csv");
-	}
+	
+	private AlunoService alunoService = new AlunoService();
 	
 	@Override
 	public void showSubmenu() {
@@ -53,7 +50,7 @@ public class AlunosSubmenu extends Submenu {
 	private void listarAlunos() {
 		System.out.println();
 		
-		List<Aluno> alunos = loadAlunos();
+		List<Aluno> alunos = alunoService.loadAlunos();
 		
 		for(Aluno aluno : alunos) {
 			System.out.println(aluno);
@@ -76,31 +73,8 @@ public class AlunosSubmenu extends Submenu {
 		nome = ConsoleUtils.getValorDigitado().trim();
 		
 		// Cadastra o aluno na base de dados
-		save(new Aluno(id, nome));
+		alunoService.save(new Aluno(id, nome));
 		
 		ConsoleUtils.showInfo(String.format("Aluno %s cadastrado com sucesso!", nome));
-	}
-	
-	/**
-	 * Retorna uma lista de alunos que estão armazenados na base de dados 
-	 * @return
-	 */
-	private List<Aluno> loadAlunos() {
-		List<Aluno> dados = new ArrayList<Aluno>();
-		
-		for(String valor : fileUtils.getFileContent()) {
-			String[] linha = valor.split(";");
-			dados.add(new Aluno(linha[0], linha[1]));
-		}
-		
-		return dados;
-	}
-	
-	/**
-	 * Realiza o cadastro de um novo aluno ba base dados
-	 */
-	private void save(Aluno aluno) {
-		String content = aluno.getId() + ";" + aluno.getNome();
-		fileUtils.appendToFile(content);
 	}
 }
