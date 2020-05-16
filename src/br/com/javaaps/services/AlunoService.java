@@ -2,8 +2,11 @@ package br.com.javaaps.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import br.com.javaaps.models.Aluno;
+import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.util.FileUtils;
 
 /**
@@ -31,8 +34,13 @@ public class AlunoService implements IService<Aluno> {
 	 * Realiza o cadastro de um novo aluno ba base dados
 	 */
 	public void save(Aluno aluno) {
-		String content = aluno.getId() + ";" + aluno.getNome();
-		fileUtils.appendToFile(content);
+		Set<String> idExistentes = load().stream().map(a -> a.getId()).collect(Collectors.toSet());
+		
+		if (!idExistentes.contains(aluno.getId())) {
+			fileUtils.appendToFile(aluno.toCSV());
+		} else {
+			throw new ObjetoJaExisteException(String.format("Já existe um aluno cadastrado com o identificador %s!", aluno.getId()));
+		}
 	}
 	
 	/**

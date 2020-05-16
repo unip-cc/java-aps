@@ -48,4 +48,8 @@ public class Aluno {
 	public String toString() {
 		return String.format("Identificador: %s - Nome: %s", getId(), getNome());
 	}
+	
+	public String toCSV() {
+		return getId() + ";" + getNome();
+	}
 }
