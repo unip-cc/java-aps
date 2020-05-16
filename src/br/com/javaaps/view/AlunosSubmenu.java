@@ -48,18 +48,19 @@ public class AlunosSubmenu extends Submenu {
 	 * Exibe todos os alunos armazenados no banco de dados 
 	 */
 	private void listarAlunos() {
-		StringBuilder conteudo = new StringBuilder("\n\n");
+		System.err.println();
+		
 		List<Aluno> alunos = new ArrayList<Aluno>();
 		
-		fileUtils.getFileContent().forEach((String valor) -> {
+		// Carrega em memória os alunos armazenados na base de dados
+		for(String valor : fileUtils.getFileContent()) {
 			String[] linha = valor.split(";");
 			alunos.add(new Aluno(linha[0], linha[1]));
-		});
+		}
 		
-		alunos.forEach((Aluno aluno) -> {
-			conteudo.append(aluno.toString() + "\n");
-		});
-		
-		System.out.println(conteudo.toString());
+		for(Aluno aluno : alunos) {
+			System.out.println(aluno);
+		}
 	}
+
 }
