@@ -1,5 +1,7 @@
 package br.com.javaaps.view;
 
+import br.com.javaaps.util.ConsoleUtils;
+
 public class AlunosSubmenu extends Submenu {
 
 	@Override
@@ -21,7 +23,22 @@ public class AlunosSubmenu extends Submenu {
 			
 			System.out.print(menu.toString());
 			
-			opcaoEscolhida = this.tryParseToInt(this.getValorDigitado());
+			opcaoEscolhida = ConsoleUtils.tryParseToInt(ConsoleUtils.getValorDigitado());
+			
+			switch(opcaoEscolhida) {
+				case LISTAR_OPTION:
+					listarAlunos();
+					break;
+				default:
+					
+			}
 		}
-	}	
+	}
+	
+	/**
+	 * Exibe todos os alunos armazenados no banco de dados 
+	 */
+	private void listarAlunos() {
+		
+	}
 }

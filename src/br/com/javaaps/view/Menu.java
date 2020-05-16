@@ -1,15 +1,12 @@
 package br.com.javaaps.view;
 
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import br.com.javaaps.util.ConsoleUtils;
 
 public class Menu {
 	
 	public static final int ALUNOS_OPTION = 1;
 	public static final int CURSOS_OPTION = 2;
 	public static final int EXIT_OPTION = 3;
-
-	private Scanner scan = new Scanner(System.in);
 	
 	public Menu() {
 
@@ -40,7 +37,7 @@ public class Menu {
 			
 			System.out.print(menu.toString());
 			
-			opcaoEscolhida = this.tryParseToInt(this.getValorDigitado());
+			opcaoEscolhida = ConsoleUtils.tryParseToInt(ConsoleUtils.getValorDigitado());
 			
 			// Realiza o direcionamento, de acordo com a opção escolhida
 			switch(opcaoEscolhida) {
@@ -60,49 +57,5 @@ public class Menu {
 		}
 		
 		System.out.println("\n\nEncerrando aplicação...");
-	}
-	
-	/**
-	 * Solicita a digitação do usuário no console
-	 * @return
-	 */
-	protected String getValorDigitado() {
-		String valor = "";
-		
-		try{
-			valor = this.scan.nextLine();
-		} catch(NoSuchElementException ex) {
-			ex.getMessage();
-		}
-		
-		return valor;
-	}
-	
-	/**
-	 * Tenta converter um dado do tipo Stirng p/ integer (realiza tratativas de erro)
-	 * @param value
-	 * @return
-	 */
-	protected int tryParseToInt(String value) {
-		int valor = 0;
-		
-		try {
-			valor = Integer.parseInt(value);
-		} catch (NumberFormatException ex) {
-			this.showError("O valor digitado não parece ser um número.. verifique e tente novamente!");
-		}
-		
-		return valor;
-	}
-	
-	/**
-	 * Exibe um erro personalizado no console
-	 * @param errorMessage
-	 */
-	protected void showError(String errorMessage) {
-		System.err.println(String.format("\n\n[ERRO] => %s", errorMessage));
-		System.err.println("Precione qualquer tecla para continuar...");
-		
-		this.getValorDigitado();
 	}
 }

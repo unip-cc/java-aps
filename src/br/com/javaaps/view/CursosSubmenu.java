@@ -1,5 +1,7 @@
 package br.com.javaaps.view;
 
+import br.com.javaaps.util.ConsoleUtils;
+
 public class CursosSubmenu extends Submenu {
 
 	@Override
@@ -21,7 +23,7 @@ public class CursosSubmenu extends Submenu {
 			
 			System.out.print(menu.toString());
 			
-			opcaoEscolhida = this.tryParseToInt(this.getValorDigitado());
+			opcaoEscolhida = ConsoleUtils.tryParseToInt(ConsoleUtils.getValorDigitado());
 		}
 	}
 }
