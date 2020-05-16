@@ -9,15 +9,14 @@ import br.com.javaaps.util.FileUtils;
 /**
  * Classe responsável por centralizar as operações relacionado ao cadastro de aluno
  */
-public class AlunoService {
+public class AlunoService implements IService<Aluno> {
 	
 	private final FileUtils fileUtils = new FileUtils("alunos.csv");
 	
 	/**
 	 * Retorna uma lista de alunos que estão armazenados na base de dados 
-	 * @return
 	 */
-	public List<Aluno> loadAlunos() {
+	public List<Aluno> load() {
 		List<Aluno> dados = new ArrayList<Aluno>();
 		
 		for(String valor : fileUtils.getFileContent()) {
@@ -34,5 +33,19 @@ public class AlunoService {
 	public void save(Aluno aluno) {
 		String content = aluno.getId() + ";" + aluno.getNome();
 		fileUtils.appendToFile(content);
+	}
+	
+	/**
+	 * Edita um aluno já existente
+	 */
+	public void edit(String objectId, Aluno aluno) {
+		
+	}
+	
+	/**
+	 * Deleta um aluno existente
+	 */
+	public void delete(String objectId) {
+		
 	}
 }

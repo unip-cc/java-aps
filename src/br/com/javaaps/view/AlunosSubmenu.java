@@ -1,14 +1,15 @@
 package br.com.javaaps.view;
 
-import java.util.List;
+import java.util.Collection;
 
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.services.AlunoService;
+import br.com.javaaps.services.IService;
 import br.com.javaaps.util.ConsoleUtils;
 
 public class AlunosSubmenu extends Submenu {
 	
-	private AlunoService alunoService = new AlunoService();
+	private IService<Aluno> alunoService = new AlunoService();
 	
 	@Override
 	public void showSubmenu() {
@@ -50,7 +51,7 @@ public class AlunosSubmenu extends Submenu {
 	private void listarAlunos() {
 		System.out.println();
 		
-		List<Aluno> alunos = alunoService.loadAlunos();
+		Collection<Aluno> alunos = alunoService.load();
 		
 		for(Aluno aluno : alunos) {
 			System.out.println(aluno);
