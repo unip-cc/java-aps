@@ -1,5 +1,7 @@
 package br.com.javaaps.view;
 
+import br.com.javaaps.util.FileUtils;
+
 public abstract class Submenu extends Menu {
 	
 	protected final int LISTAR_OPTION = 1;
@@ -8,5 +10,7 @@ public abstract class Submenu extends Menu {
 	protected final int REMOVER_OPTION = 4;
 	protected final int VOLTAR_OPTION = 5;
 
+	protected FileUtils fileUtils;
+	
 	public abstract void showSubmenu();
 }
