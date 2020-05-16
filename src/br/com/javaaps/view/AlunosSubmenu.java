@@ -38,6 +38,9 @@ public class AlunosSubmenu extends Submenu {
 				case LISTAR_OPTION:
 					listarAlunos();
 					break;
+				case CADASTRAR_OPTION:
+					cadastrarAluno();
+					break;
 				default:
 					
 			}
@@ -48,19 +51,56 @@ public class AlunosSubmenu extends Submenu {
 	 * Exibe todos os alunos armazenados no banco de dados 
 	 */
 	private void listarAlunos() {
-		System.err.println();
+		System.out.println();
 		
-		List<Aluno> alunos = new ArrayList<Aluno>();
-		
-		// Carrega em memória os alunos armazenados na base de dados
-		for(String valor : fileUtils.getFileContent()) {
-			String[] linha = valor.split(";");
-			alunos.add(new Aluno(linha[0], linha[1]));
-		}
+		List<Aluno> alunos = loadAlunos();
 		
 		for(Aluno aluno : alunos) {
 			System.out.println(aluno);
 		}
 	}
-
+	
+	/**
+	 * Cadastra um novo aluno na base de dados
+	 */
+	private void cadastrarAluno() {
+		System.out.println();
+				
+		String id;
+		String nome;
+		
+		System.out.print("Identificador: ");
+		id = ConsoleUtils.getValorDigitado().trim();
+		
+		System.out.print("Nome: ");
+		nome = ConsoleUtils.getValorDigitado().trim();
+		
+		// Cadastra o aluno na base de dados
+		save(new Aluno(id, nome));
+		
+		ConsoleUtils.showInfo(String.format("Aluno %s cadastrado com sucesso!", nome));
+	}
+	
+	/**
+	 * Retorna uma lista de alunos que estão armazenados na base de dados 
+	 * @return
+	 */
+	private List<Aluno> loadAlunos() {
+		List<Aluno> dados = new ArrayList<Aluno>();
+		
+		for(String valor : fileUtils.getFileContent()) {
+			String[] linha = valor.split(";");
+			dados.add(new Aluno(linha[0], linha[1]));
+		}
+		
+		return dados;
+	}
+	
+	/**
+	 * Realiza o cadastro de um novo aluno ba base dados
+	 */
+	private void save(Aluno aluno) {
+		String content = aluno.getId() + ";" + aluno.getNome();
+		fileUtils.appendToFile(content);
+	}
 }

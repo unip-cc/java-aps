@@ -51,4 +51,17 @@ public class ConsoleUtils {
 		
 		ConsoleUtils.getValorDigitado();
 	}
+	
+	/**
+	 * Exibe uma mensagem informativa personalizada
+	 * @param errorMessage
+	 */
+	public static void showInfo(String message) {
+		System.out.println(String.format("\n[INFO] => %s", message));
+		System.out.println("Precione qualquer tecla para continuar...");
+		
+		ConsoleUtils.getValorDigitado();
+	}
+	
+	
 }

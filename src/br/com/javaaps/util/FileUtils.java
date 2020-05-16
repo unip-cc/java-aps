@@ -1,8 +1,10 @@
 package br.com.javaaps.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -14,10 +16,12 @@ import java.util.List;
 public class FileUtils {
 
 	private final String filePath;
+	private final File file;
 	private final String charsetName = "UTF-8";
 	
 	public FileUtils(String filePath) {
 		this.filePath = filePath;
+		this.file = new File(filePath);
 	}
 
 	/**
@@ -26,7 +30,6 @@ public class FileUtils {
 	 */
 	public List<String> getFileContent() {
 		List<String> content = new ArrayList<String>();
-		File file = new File(filePath);
 		
 		try(BufferedReader reader = new BufferedReader(new FileReader(file, Charset.forName(charsetName)))) {
 			String linha = reader.readLine();
@@ -41,6 +44,18 @@ public class FileUtils {
 		}
 		
 		return content;
+	}
+	
+	/**
+	 * Adiciona uma linha (content) no final do arquivo
+	 * @param content
+	 */
+	public void appendToFile(String content) {
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, Charset.forName(charsetName), true))) {
+			writer.write("\n" + content);
+		} catch (IOException ex) {
+			ConsoleUtils.showError("Ocorreu um erro ao realizar a escrita no arquivo de dados!'");
+		}
 	}
 	
 	public String getFilePath() {
