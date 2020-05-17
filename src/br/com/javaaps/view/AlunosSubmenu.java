@@ -5,6 +5,7 @@ import java.util.Collection;
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.services.AlunoService;
 import br.com.javaaps.services.IService;
+import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.util.ConsoleUtils;
 
 public class AlunosSubmenu extends Submenu {
@@ -67,15 +68,19 @@ public class AlunosSubmenu extends Submenu {
 		String id;
 		String nome;
 		
-		System.out.print("Identificador: ");
-		id = ConsoleUtils.getValorDigitado().trim();
-		
-		System.out.print("Nome: ");
-		nome = ConsoleUtils.getValorDigitado().trim();
-		
-		// Cadastra o aluno na base de dados
-		alunoService.save(new Aluno(id, nome));
-		
-		ConsoleUtils.showInfo(String.format("Aluno %s cadastrado com sucesso!", nome));
+		try {
+			System.out.print("Identificador: ");
+			id = ConsoleUtils.getValorDigitado().trim();
+			
+			System.out.print("Nome: ");
+			nome = ConsoleUtils.getValorDigitado().trim();
+			
+			// Cadastra o aluno na base de dados
+			alunoService.save(new Aluno(id, nome));
+			
+			ConsoleUtils.showInfo(String.format("Aluno %s cadastrado com sucesso!", nome));
+		} catch (ObjetoJaExisteException ex) {
+			ConsoleUtils.showError(ex.getMessage());
+		}
 	}
 }
