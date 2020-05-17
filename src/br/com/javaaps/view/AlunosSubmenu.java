@@ -7,6 +7,7 @@ import br.com.javaaps.services.AlunoService;
 import br.com.javaaps.services.IService;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
+import br.com.javaaps.services.exceptions.ValidacaoException;
 import br.com.javaaps.util.ConsoleUtils;
 
 public class AlunosSubmenu extends Submenu {
@@ -84,7 +85,7 @@ public class AlunosSubmenu extends Submenu {
 			alunoService.save(new Aluno(id, nome));
 			
 			ConsoleUtils.showInfo(String.format("Aluno %s cadastrado com sucesso!", nome));
-		} catch (ObjetoJaExisteException ex) {
+		} catch (ObjetoJaExisteException | ValidacaoException ex) {
 			ConsoleUtils.showError(ex.getMessage());
 		}
 	}
@@ -115,7 +116,7 @@ public class AlunosSubmenu extends Submenu {
 			alunoService.edit(id, aluno);
 			
 			ConsoleUtils.showInfo("Cadastro atualizado com sucesso!");
-		} catch (ObjetoNaoEncontradoException ex) {
+		} catch (ObjetoNaoEncontradoException | ValidacaoException ex) {
 			ConsoleUtils.showError(ex.getMessage());
 		}
 	}

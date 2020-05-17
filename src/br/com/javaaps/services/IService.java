@@ -9,4 +9,5 @@ public interface IService<T> {
 	void save(T obj);
 	void edit(String objectId, T obj);
 	void delete(String objectId);
+	boolean isValid(T obj);
 }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
+import br.com.javaaps.services.exceptions.ValidacaoException;
 import br.com.javaaps.util.FileUtils;
 
 /**
@@ -21,6 +22,7 @@ public class AlunoService implements IService<Aluno> {
 	/**
 	 * Retorna uma lista de alunos que estão armazenados na base de dados 
 	 */
+	@Override
 	public Set<Aluno> load() {
 		Set<Aluno> dados = new HashSet<Aluno>();
 		
@@ -32,6 +34,10 @@ public class AlunoService implements IService<Aluno> {
 		return dados;
 	}
 	
+	/**
+	 * Retorna um aluno através do seu identificador (id)
+	 */
+	@Override
 	public Aluno getById(String id) {
 		return load().stream().filter(a -> a.getId().equals(id)).findFirst()
 			.orElseThrow(() -> new ObjetoNaoEncontradoException(String.format("Nenhum aluno encontrado com o identificador %s!", id)));
@@ -40,36 +46,47 @@ public class AlunoService implements IService<Aluno> {
 	/**
 	 * Realiza o cadastro de um novo aluno ba base dados
 	 */
+	@Override
 	public void save(Aluno aluno) {
-		Set<String> idExistentes = load().stream().map(a -> a.getId()).collect(Collectors.toSet());
-		
-		if (!idExistentes.contains(aluno.getId())) {
-			fileUtils.appendToFile(aluno.toCSV());
+		if (isValid(aluno)) {
+			Set<String> idExistentes = load().stream().map(a -> a.getId()).collect(Collectors.toSet());
+			
+			if (!idExistentes.contains(aluno.getId())) {
+				fileUtils.appendToFile(aluno.toCSV());
+			} else {
+				throw new ObjetoJaExisteException(String.format("Já existe um aluno cadastrado com o identificador %s!", aluno.getId()));
+			}
 		} else {
-			throw new ObjetoJaExisteException(String.format("Já existe um aluno cadastrado com o identificador %s!", aluno.getId()));
+			throw new ValidacaoException("Nem todos os campos foram preenchidos corretamente. Verifique");
 		}
 	}
 	
 	/**
 	 * Edita um aluno já existente
 	 */
+	@Override
 	public void edit(String objectId, Aluno aluno) {
-		List<String> fileContent = new ArrayList<String>();
-		
-		for(Aluno alunoAtual : load()) {
-			if (alunoAtual.getId().equals(objectId)) {
-				alunoAtual = aluno;
+		if (isValid(aluno)) {
+			List<String> fileContent = new ArrayList<String>();
+			
+			for(Aluno alunoAtual : load()) {
+				if (alunoAtual.getId().equals(objectId)) {
+					alunoAtual = aluno;
+				}
+				
+				fileContent.add(alunoAtual.toCSV());
 			}
 			
-			fileContent.add(alunoAtual.toCSV());
+			fileUtils.write(fileContent);
+		} else {
+			throw new ValidacaoException("Nem todos os campos foram preenchidos corretamente. Verifique");
 		}
-		
-		fileUtils.write(fileContent);
 	}
 	
 	/**
 	 * Deleta um aluno existente
 	 */
+	@Override
 	public void delete(String objectId) {
 		List<String> fileContent = new ArrayList<String>();
 		
@@ -80,5 +97,13 @@ public class AlunoService implements IService<Aluno> {
 		}
 		
 		fileUtils.write(fileContent);
+	}
+
+	/**
+	 * Efetua a validação da entidade aluno
+	 */
+	@Override
+	public boolean isValid(Aluno obj) {
+		return !obj.getId().trim().isEmpty() && !obj.getNome().trim().isEmpty(); 
 	}
 }
