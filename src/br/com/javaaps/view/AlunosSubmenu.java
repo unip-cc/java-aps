@@ -6,6 +6,7 @@ import br.com.javaaps.models.Aluno;
 import br.com.javaaps.services.AlunoService;
 import br.com.javaaps.services.IService;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
+import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.javaaps.util.ConsoleUtils;
 
 public class AlunosSubmenu extends Submenu {
@@ -39,6 +40,9 @@ public class AlunosSubmenu extends Submenu {
 					break;
 				case CADASTRAR_OPTION:
 					cadastrarAluno();
+					break;
+				case EDITAR_OPTION:
+					editarAluno();
 					break;
 				default:
 					
@@ -80,6 +84,35 @@ public class AlunosSubmenu extends Submenu {
 			
 			ConsoleUtils.showInfo(String.format("Aluno %s cadastrado com sucesso!", nome));
 		} catch (ObjetoJaExisteException ex) {
+			ConsoleUtils.showError(ex.getMessage());
+		}
+	}
+	
+	/**
+	 * Edita um aluno já existente
+	 */
+	private void editarAluno() {
+		String id;
+		String novoNome;
+		
+		System.out.print("Digite o identificador do aluno que deseja editar: ");
+		id = ConsoleUtils.getValorDigitado();
+		
+		try {
+			Aluno aluno = alunoService.getById(id);
+			
+			System.out.println("Dados do aluno => " + aluno.toString());
+			
+			System.out.print("Novo nome: ");
+			novoNome = ConsoleUtils.getValorDigitado();
+			
+			aluno.setNome(novoNome);
+			
+			// Salva alterações no banco de dados
+			alunoService.edit(id, aluno);
+			
+			ConsoleUtils.showInfo("Cadastro atualizado com sucesso!");
+		} catch (ObjetoNaoEncontradoException ex) {
 			ConsoleUtils.showError(ex.getMessage());
 		}
 	}

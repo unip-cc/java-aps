@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class FileUtils {
 
 	private final String filePath;
 	private final File file;
-	private final String charsetName = "UTF-8";
+	private final Charset charset = Charset.forName("UTF-8");
 	
 	public FileUtils(String filePath) {
 		this.filePath = filePath;
@@ -31,7 +32,7 @@ public class FileUtils {
 	public List<String> getFileContent() {
 		List<String> content = new ArrayList<String>();
 		
-		try(BufferedReader reader = new BufferedReader(new FileReader(file, Charset.forName(charsetName)))) {
+		try(BufferedReader reader = new BufferedReader(new FileReader(file, charset))) {
 			String linha = reader.readLine();
 			
 			while (linha != null) {
@@ -47,12 +48,26 @@ public class FileUtils {
 	}
 	
 	/**
+	 * Escreve no arquivo (remove todo o conteúdo anterior)
+	 * @param lines
+	 */
+	public void write(Collection<String> lines) {
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, charset, false))){
+			for(String linha : lines) {
+				writer.write(linha + "\n");
+			}
+		} catch (IOException ex) {
+			ConsoleUtils.showError("Ocorreu um erro ao realizar a escrita no arquivo de dados!'");
+		}
+	}
+	
+	/**
 	 * Adiciona uma linha (content) no final do arquivo
 	 * @param content
 	 */
 	public void appendToFile(String content) {
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, Charset.forName(charsetName), true))) {
-			writer.write("\n" + content);
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, charset, true))) {
+			writer.write(content + "\n");
 		} catch (IOException ex) {
 			ConsoleUtils.showError("Ocorreu um erro ao realizar a escrita no arquivo de dados!'");
 		}
