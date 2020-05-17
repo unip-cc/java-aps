@@ -1,7 +1,9 @@
 package br.com.javaaps.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.com.javaaps.models.Aluno;
@@ -19,8 +21,8 @@ public class AlunoService implements IService<Aluno> {
 	/**
 	 * Retorna uma lista de alunos que estão armazenados na base de dados 
 	 */
-	public List<Aluno> load() {
-		List<Aluno> dados = new ArrayList<Aluno>();
+	public Set<Aluno> load() {
+		Set<Aluno> dados = new HashSet<Aluno>();
 		
 		for(String valor : fileUtils.getFileContent()) {
 			String[] linha = valor.split(";");
@@ -39,7 +41,7 @@ public class AlunoService implements IService<Aluno> {
 	 * Realiza o cadastro de um novo aluno ba base dados
 	 */
 	public void save(Aluno aluno) {
-		List<String> idExistentes = load().stream().map(a -> a.getId()).collect(Collectors.toList());
+		Set<String> idExistentes = load().stream().map(a -> a.getId()).collect(Collectors.toSet());
 		
 		if (!idExistentes.contains(aluno.getId())) {
 			fileUtils.appendToFile(aluno.toCSV());
@@ -69,6 +71,14 @@ public class AlunoService implements IService<Aluno> {
 	 * Deleta um aluno existente
 	 */
 	public void delete(String objectId) {
+		List<String> fileContent = new ArrayList<String>();
 		
+		for(Aluno aluno : load()) {
+			if (!aluno.getId().equals(objectId)) {
+				fileContent.add(aluno.toCSV());
+			}
+		}
+		
+		fileUtils.write(fileContent);
 	}
 }

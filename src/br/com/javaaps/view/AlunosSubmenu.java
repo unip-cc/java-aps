@@ -44,8 +44,9 @@ public class AlunosSubmenu extends Submenu {
 				case EDITAR_OPTION:
 					editarAluno();
 					break;
-				default:
-					
+				case REMOVER_OPTION:
+					deletarAluno();
+					break;
 			}
 		}
 	}
@@ -92,6 +93,8 @@ public class AlunosSubmenu extends Submenu {
 	 * Edita um aluno já existente
 	 */
 	private void editarAluno() {
+		System.out.println();
+		
 		String id;
 		String novoNome;
 		
@@ -112,6 +115,27 @@ public class AlunosSubmenu extends Submenu {
 			alunoService.edit(id, aluno);
 			
 			ConsoleUtils.showInfo("Cadastro atualizado com sucesso!");
+		} catch (ObjetoNaoEncontradoException ex) {
+			ConsoleUtils.showError(ex.getMessage());
+		}
+	}
+	
+	/**
+	 * Remove um aluno já existente
+	 */
+	private void deletarAluno() {
+		System.out.println();
+		
+		System.out.print("Digite o identificador do aluno que deseja remover: ");
+		String id = ConsoleUtils.getValorDigitado();
+		
+		try {
+			Aluno aluno = alunoService.getById(id);
+			
+			// Remove aluno da base de dados
+			alunoService.delete(id);
+			
+			ConsoleUtils.showInfo(String.format("Aluno %s removido com sucesso!", aluno.getNome()));
 		} catch (ObjetoNaoEncontradoException ex) {
 			ConsoleUtils.showError(ex.getMessage());
 		}
