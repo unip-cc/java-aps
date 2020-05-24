@@ -5,7 +5,7 @@ public class Curso {
   private String nome;
   private String nivel;
   private String ano;
-
+  
   public Curso(String nome, String aNivel, String ano) {
     super();
     this.nome = nome;
@@ -45,5 +45,13 @@ public class Curso {
 
   public String toCSV() {
     return getNome() + ";" + getNivel() + ";" + getAno();
+  }
+  
+  public boolean isGraduacao() {
+	  return getNivel().equalsIgnoreCase("graduacao");
+  }
+  
+  public double getMedia () {
+	  return isGraduacao() ? 7 : 5;
   }
 }
