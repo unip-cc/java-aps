@@ -40,7 +40,7 @@ public class Curso {
 
   @Override
   public String toString() {
-    return "Nome: " + getNome() + "\nNÃ­vel: " + getNivel() + "\nAno: " + getAno() + "\n";
+    return "Nome: " + getNome() + "\nNível: " + getNivel() + "\nAno: " + getAno() + "\n";
   }
 
   public String toCSV() {
