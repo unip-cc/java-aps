@@ -29,7 +29,7 @@ public class CursosSubmenu extends Submenu {
 			menu.append(String.format("[%d] Remover curso \n", REMOVER_OPTION));
 			menu.append(String.format("[%d] VOLTAR \n\n", VOLTAR_OPTION));
 
-			menu.append("Escolha uma op��o: ");
+			menu.append("Escolha uma opção: ");
 
 			System.out.print(menu.toString());
 
