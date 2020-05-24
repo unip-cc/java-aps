@@ -3,7 +3,7 @@ package br.com.javaaps.view;
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.models.Curso;
 import br.com.javaaps.services.CursoService;
-import br.com.javaaps.services.IService;
+import br.com.javaaps.services.Service;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.services.exceptions.ValidacaoException;
 import br.com.javaaps.util.ConsoleUtils;
@@ -12,7 +12,7 @@ import java.util.Collection;
 
 public class CursosSubmenu extends Submenu {
 
-  private IService<Curso> cursoService = new CursoService();
+  private Service<Curso> cursoService = new CursoService();
 
 	@Override
 	public void showSubmenu() {

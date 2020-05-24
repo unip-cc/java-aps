@@ -15,7 +15,7 @@ import br.com.javaaps.util.FileUtils;
 /**
  * Classe responsável por centralizar as operações relacionado ao cadastro de aluno
  */
-public class AlunoService implements IService<Aluno> {
+public class AlunoService implements Service<Aluno> {
 	
 	private final FileUtils fileUtils = new FileUtils("alunos.csv");
 	

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CursoService implements IService<Curso> {
+public class CursoService implements Service<Curso> {
 
   private final FileUtils fileUtils = new FileUtils("cursos.csv");
 

@@ -2,7 +2,7 @@ package br.com.javaaps.services;
 
 import java.util.Collection;
 
-public interface IService<T> {
+public interface Service<T> {
 
 	Collection<T> load();
 	T getById(String objectId);

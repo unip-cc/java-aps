@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.services.AlunoService;
-import br.com.javaaps.services.IService;
+import br.com.javaaps.services.Service;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.javaaps.services.exceptions.ValidacaoException;
@@ -12,7 +12,7 @@ import br.com.javaaps.util.ConsoleUtils;
 
 public class AlunosSubmenu extends Submenu {
 	
-	private IService<Aluno> alunoService = new AlunoService();
+	private Service<Aluno> alunoService = new AlunoService();
 	
 	@Override
 	public void showSubmenu() {
