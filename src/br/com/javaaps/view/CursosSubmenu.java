@@ -73,7 +73,7 @@ public class CursosSubmenu extends Submenu {
 
     String nome;
     String nivel;
-    String ano;
+    int ano;
 
     try {
       System.out.print("Nome: ");
@@ -83,7 +83,7 @@ public class CursosSubmenu extends Submenu {
       nivel = ConsoleUtils.getValorDigitado().trim();
 
       System.out.print("Ano: ");
-      ano = ConsoleUtils.getValorDigitado().trim();
+      ano = ConsoleUtils.tryParseToInt(ConsoleUtils.getValorDigitado().trim());
 
       // Cadastra o curso na base de dados
       cursoService.save(new Curso(nome, nivel, ano));

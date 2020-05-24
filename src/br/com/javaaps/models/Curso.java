@@ -4,9 +4,9 @@ public class Curso {
 
   private String nome;
   private String nivel;
-  private String ano;
+  private int ano;
   
-  public Curso(String nome, String aNivel, String ano) {
+  public Curso(String nome, String aNivel, int ano) {
     super();
     this.nome = nome;
     this.nivel = aNivel;
@@ -15,11 +15,11 @@ public class Curso {
 
   public String getNome() {return nome;}
   public String getNivel() {return nivel;}
-  public String getAno() {return ano;}
+  public int getAno() {return ano;}
 
   public void setNome(String nome) {this.nome = nome;}
   public void setNivel(String nivel) {this.nivel = nivel;}
-  public void setAno(String ano) {this.ano = ano;}
+  public void setAno(int ano) {this.ano = ano;}
 
   @Override
   public boolean equals(Object obj) {

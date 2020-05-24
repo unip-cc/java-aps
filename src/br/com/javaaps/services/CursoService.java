@@ -26,7 +26,7 @@ public class CursoService implements Service<Curso> {
 
     for(String valor : fileUtils.getFileContent()) {
       String[] linha = valor.split(";");
-      dados.add(new Curso(linha[0], linha[1], linha[2]));
+      dados.add(new Curso(linha[0], linha[1], Integer.parseInt(linha[2])));
     }
 
     return dados;
@@ -105,7 +105,7 @@ public class CursoService implements Service<Curso> {
    */
   @Override
   public boolean isValid(Curso obj) {
-    return !obj.getNome().trim().isEmpty() && !obj.getNivel().trim().isEmpty() && !obj.getAno().trim().isEmpty();
+    return !obj.getNome().trim().isEmpty() && !obj.getNivel().trim().isEmpty() && obj.getAno() != 0;
   }
 
 }
