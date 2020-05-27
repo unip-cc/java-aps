@@ -8,7 +8,7 @@ public class ConsoleUtils {
 	private static Scanner scan;
 
 	/**
-	 * Solicita a digitação do usuário no console
+	 * Solicita a digitaï¿½ï¿½o do usuï¿½rio no console
 	 * @return
 	 */
 	public static String getValorDigitado() {
@@ -25,7 +25,7 @@ public class ConsoleUtils {
 	}
 	
 	/**
-	 * Tenta converter um dado do tipo Stirng p/ integer (realiza tratativas de erro)
+	 * Tenta converter um dado do tipo String p/ integer (realiza tratativas de erro)
 	 * @param value
 	 * @return
 	 */
@@ -35,11 +35,29 @@ public class ConsoleUtils {
 		try {
 			valor = Integer.parseInt(value);
 		} catch (NumberFormatException ex) {
-			ConsoleUtils.showError("O valor digitado não parece ser um número.. verifique e tente novamente!");
+			ConsoleUtils.showError("O valor digitado nÃ£o parece ser um nÃºmero inteiro.. verifique e tente novamente!");
 		}
 		
 		return valor;
 	}
+	
+	/**
+	 * Tenta converter um dado do tipo String p/ double (realiza tratativas de erro)
+	 * @param value
+	 * @return
+	 */
+	public static double tryParseToDouble(String value) {
+		double valor = 0;
+		
+		try {
+			valor = Double.parseDouble(value);
+		} catch (NumberFormatException ex) {
+			ConsoleUtils.showError("O valor digitado nÃ£o parece ser um nÃºmero decimal.. verifique e tente novamente!");
+		}
+		
+		return valor;
+	}
+	
 	
 	/**
 	 * Exibe um erro personalizado no console

@@ -1,17 +1,16 @@
 package br.com.javaaps.services;
 
-import br.com.javaaps.models.Aluno;
-import br.com.javaaps.models.Curso;
-import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
-import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
-import br.com.javaaps.services.exceptions.ValidacaoException;
-import br.com.javaaps.util.FileUtils;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import br.com.javaaps.models.Curso;
+import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
+import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
+import br.com.javaaps.services.exceptions.ValidacaoException;
+import br.com.javaaps.util.FileUtils;
 
 public class CursoService implements Service<Curso> {
 
@@ -33,24 +32,31 @@ public class CursoService implements Service<Curso> {
   }
 
   /**
-   * Retorna um curso atrav�s do seu identificador (nome)
+   * Retorna um curso através do seu nome
    */
-  @Override
-  public Curso getById(String nome) {
-    return load().stream().filter(a -> a.getNome().equals(nome)).findFirst()
-      .orElseThrow(() -> new ObjetoNaoEncontradoException(String.format("Nenhum curso encontrado com o nome %s!", nome)));
+  public Set<Curso> getByNome(String nome) {
+    return load().stream().filter(a -> a.getNome().equals(nome)).collect(Collectors.toSet());
   }
-
-
+  
+  /**
+   * Retorna um curso através do seu nome, do seu nível e do seu ano
+   * @param nome
+   * @param nivel
+   * @param ano
+   * @return
+   */
+  public Curso getByNomeAndNivelAndAno(String nome, String nivel, int ano) {
+	  return load().stream().filter(c -> c.getNome().equals(nome) && c.getNivel().equals(nivel) && c.getAno() == ano).findFirst()
+		.orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum curso encontrado com os par�metros informados!"));
+  }
+  
   /**
    * Realiza o cadastro de um novo curso ba base dados
    */
   @Override
   public void save(Curso curso) {
     if (isValid(curso)) {
-      Set<String> nomeExistentes = load().stream().map(a -> a.getNome()).collect(Collectors.toSet());
-
-      if (!nomeExistentes.contains(curso.getNome())) {
+      if (getByNome(curso.getNome()).isEmpty()) {
         fileUtils.appendToFile(curso.toCSV());
       } else {
         throw new ObjetoJaExisteException(String.format("Já existe um curso cadastrado com o nome %s!", curso.getNome()));

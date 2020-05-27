@@ -13,14 +13,14 @@ import br.com.javaaps.services.exceptions.ValidacaoException;
 import br.com.javaaps.util.FileUtils;
 
 /**
- * Classe responsável por centralizar as operações relacionado ao cadastro de aluno
+ * Classe responsï¿½vel por centralizar as operaï¿½ï¿½es relacionado ao cadastro de aluno
  */
 public class AlunoService implements Service<Aluno> {
 	
 	private final FileUtils fileUtils = new FileUtils("alunos.csv");
 	
 	/**
-	 * Retorna uma lista de alunos que estão armazenados na base de dados 
+	 * Retorna uma lista de alunos que estï¿½o armazenados na base de dados 
 	 */
 	@Override
 	public Set<Aluno> load() {
@@ -35,10 +35,9 @@ public class AlunoService implements Service<Aluno> {
 	}
 	
 	/**
-	 * Retorna um aluno através do seu identificador (id)
+	 * Retorna um aluno atravï¿½s do seu identificador (id)
 	 */
-	@Override
-	public Aluno getById(String id) {
+	public Aluno getByNome(String id) {
 		return load().stream().filter(a -> a.getId().equals(id)).findFirst()
 			.orElseThrow(() -> new ObjetoNaoEncontradoException(String.format("Nenhum aluno encontrado com o identificador %s!", id)));
 	}
@@ -54,7 +53,7 @@ public class AlunoService implements Service<Aluno> {
 			if (!idExistentes.contains(aluno.getId())) {
 				fileUtils.appendToFile(aluno.toCSV());
 			} else {
-				throw new ObjetoJaExisteException(String.format("Já existe um aluno cadastrado com o identificador %s!", aluno.getId()));
+				throw new ObjetoJaExisteException(String.format("JÃ¡ existe um aluno cadastrado com o identificador %s!", aluno.getId()));
 			}
 		} else {
 			throw new ValidacaoException("Nem todos os campos foram preenchidos corretamente. Verifique");
@@ -62,7 +61,7 @@ public class AlunoService implements Service<Aluno> {
 	}
 	
 	/**
-	 * Edita um aluno já existente
+	 * Edita um aluno jï¿½ existente
 	 */
 	@Override
 	public void edit(String objectId, Aluno aluno) {
@@ -100,7 +99,7 @@ public class AlunoService implements Service<Aluno> {
 	}
 
 	/**
-	 * Efetua a validação da entidade aluno
+	 * Efetua a validaÃ§Ã£o da entidade aluno
 	 */
 	@Override
 	public boolean isValid(Aluno obj) {

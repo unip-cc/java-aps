@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Classe genérica criada para realizar a manipulação dos arquivos CSV (leitura e escrita)
+ * Classe genï¿½rica criada para realizar a manipulaï¿½ï¿½o dos arquivos CSV (leitura e escrita)
  */
 public class FileUtils {
 
@@ -21,12 +21,15 @@ public class FileUtils {
 	private final Charset charset = Charset.forName("UTF-8");
 	
 	public FileUtils(String filePath) {
-		this.filePath = filePath;
-		this.file = new File(filePath);
+		this.filePath = "database/" + filePath;
+		this.file = new File(this.filePath);
+		
+		// Cria o arquivo de dados, caso seja necessÃ¡rio..
+		createFile(this.file);
 	}
 
 	/**
-	 * Retorna o conteúdo do arquivo CSV (cada índice da lista representa uma linha do arquivo)
+	 * Retorna o conteï¿½do do arquivo CSV (cada ï¿½ndice da lista representa uma linha do arquivo)
 	 * @return
 	 */
 	public List<String> getFileContent() {
@@ -48,7 +51,7 @@ public class FileUtils {
 	}
 	
 	/**
-	 * Escreve no arquivo (remove todo o conteúdo anterior)
+	 * Escreve no arquivo (remove todo o conteï¿½do anterior)
 	 * @param lines
 	 */
 	public void write(Collection<String> lines) {
@@ -75,5 +78,19 @@ public class FileUtils {
 	
 	public String getFilePath() {
 		return filePath;
+	}
+	
+	/**
+	 * Cria o arquivo de dados
+	 * @param file
+	 */
+	private void createFile(File file) {
+		try {
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+		} catch (IOException ex) {
+			ConsoleUtils.showError("Ocorreu um erro ao criar o arquivo de dados..");
+		}
 	}
 }

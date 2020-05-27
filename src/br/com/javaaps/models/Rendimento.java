@@ -16,7 +16,7 @@ public class Rendimento {
 	}
 	
 	/**
-	 * Retorna se o aluno está aprovado ou não
+	 * Retorna se o aluno estï¿½ aprovado ou nï¿½o
 	 * @return
 	 */
 	public boolean isAprovado() {
@@ -52,7 +52,7 @@ public class Rendimento {
 		
 		mediaInicial = (notaNP1 + notaNP2) / 2;
 	
-		// Calcula aprovação
+		// Calcula aprovaï¿½ï¿½o
 		if (mediaInicial >= curso.getMedia()) {
 			return true;
 		} else {
@@ -82,5 +82,17 @@ public class Rendimento {
 
 	public void setNotas(List<Nota> notas) {
 		this.notas = notas;
+	}
+	
+	public String toCSV() {
+		String csv = "";
+		
+		csv += getAluno().getId();
+		
+		for(Nota nota : getNotas()) {
+			csv += ";" + nota.getValor();
+		}
+		
+		return csv;
 	}
 }

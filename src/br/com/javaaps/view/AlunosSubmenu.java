@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.services.AlunoService;
-import br.com.javaaps.services.Service;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.javaaps.services.exceptions.ValidacaoException;
@@ -12,7 +11,7 @@ import br.com.javaaps.util.ConsoleUtils;
 
 public class AlunosSubmenu extends Submenu {
 	
-	private Service<Aluno> alunoService = new AlunoService();
+	private AlunoService alunoService = new AlunoService();
 	
 	@Override
 	public void showSubmenu() {
@@ -22,14 +21,14 @@ public class AlunosSubmenu extends Submenu {
 			System.out.println("\n\n");
 			StringBuilder menu = new StringBuilder();
 			
-			// Definição do menu
+			// Definiï¿½ï¿½o do menu
 			menu.append(String.format("[%d] Listar alunos \n", LISTAR_OPTION));
 			menu.append(String.format("[%d] Cadastrar aluno \n", CADASTRAR_OPTION));
 			menu.append(String.format("[%d] Editar aluno \n", EDITAR_OPTION));
 			menu.append(String.format("[%d] Remover aluno \n", REMOVER_OPTION));
 			menu.append(String.format("[%d] VOLTAR \n\n", VOLTAR_OPTION));
 			
-			menu.append("Escolha uma opção: ");
+			menu.append("Escolha uma opÃ§Ã£o: ");
 			
 			System.out.print(menu.toString());
 			
@@ -91,7 +90,7 @@ public class AlunosSubmenu extends Submenu {
 	}
 	
 	/**
-	 * Edita um aluno já existente
+	 * Edita um aluno jï¿½ existente
 	 */
 	private void editarAluno() {
 		System.out.println();
@@ -103,7 +102,7 @@ public class AlunosSubmenu extends Submenu {
 		id = ConsoleUtils.getValorDigitado();
 		
 		try {
-			Aluno aluno = alunoService.getById(id);
+			Aluno aluno = alunoService.getByNome(id);
 			
 			System.out.println("Dados do aluno => " + aluno.toString());
 			
@@ -112,7 +111,7 @@ public class AlunosSubmenu extends Submenu {
 			
 			aluno.setNome(novoNome);
 			
-			// Salva alterações no banco de dados
+			// Salva alteraÃ§Ãµes no banco de dados
 			alunoService.edit(id, aluno);
 			
 			ConsoleUtils.showInfo("Cadastro atualizado com sucesso!");
@@ -122,7 +121,7 @@ public class AlunosSubmenu extends Submenu {
 	}
 	
 	/**
-	 * Remove um aluno já existente
+	 * Remove um aluno jï¿½ existente
 	 */
 	private void deletarAluno() {
 		System.out.println();
@@ -131,7 +130,7 @@ public class AlunosSubmenu extends Submenu {
 		String id = ConsoleUtils.getValorDigitado();
 		
 		try {
-			Aluno aluno = alunoService.getById(id);
+			Aluno aluno = alunoService.getByNome(id);
 			
 			// Remove aluno da base de dados
 			alunoService.delete(id);

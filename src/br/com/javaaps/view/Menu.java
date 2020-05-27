@@ -6,14 +6,15 @@ public class Menu {
 	
 	public static final int ALUNOS_OPTION = 1;
 	public static final int CURSOS_OPTION = 2;
-	public static final int EXIT_OPTION = 3;
+	public static final int RENDIMENTOS_OPTION = 3;
+	public static final int EXIT_OPTION = 4;
 	
 	public Menu() {
 
 	}
 	
 	/**
-	 * Exibe o menu inicial da aplicação
+	 * Exibe o menu inicial da aplicaï¿½ï¿½o
 	 */
 	public void show()
 	{
@@ -26,26 +27,30 @@ public class Menu {
 			Submenu submenu = null;
 			StringBuilder menu = new StringBuilder();
 			
-			menu.append("Seja bem vindo ao sistema de gerenciamento da Universidade Amazônia! \n\n");
+			menu.append("Seja bem vindo ao sistema de gerenciamento da Universidade AmazÃ´nia! \n\n");
 			
-			// Definição do menu
+			// Definiï¿½ï¿½o do menu
 			menu.append(String.format("[%d] Alunos \n", ALUNOS_OPTION));
 			menu.append(String.format("[%d] Cursos \n", CURSOS_OPTION));
+			menu.append(String.format("[%d] Rendimentos \n", RENDIMENTOS_OPTION));
 			menu.append(String.format("[%d] Sair \n\n", EXIT_OPTION));
 			
-			menu.append("Escolha uma opção: ");
+			menu.append("Escolha uma opÃ§Ã£o: ");
 			
 			System.out.print(menu.toString());
 			
 			opcaoEscolhida = ConsoleUtils.tryParseToInt(ConsoleUtils.getValorDigitado());
 			
-			// Realiza o direcionamento, de acordo com a opção escolhida
+			// Realiza o direcionamento, de acordo com a opï¿½ï¿½o escolhida
 			switch(opcaoEscolhida) {
 				case ALUNOS_OPTION:
 					submenu = new AlunosSubmenu();
 					break;
 				case CURSOS_OPTION:
 					submenu = new CursosSubmenu();
+					break;
+				case RENDIMENTOS_OPTION:
+					submenu = new RendimentoSubmenu();
 					break;
 				default:
 					
@@ -56,6 +61,6 @@ public class Menu {
 			}
 		}
 		
-		System.out.println("\n\nEncerrando aplicação...");
+		System.out.println("\n\nEncerrando aplicaÃ§Ã£o...");
 	}
 }
