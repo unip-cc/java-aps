@@ -11,7 +11,8 @@ public class RendimentoService implements Service<Rendimento> {
 
 	private final FileUtils fileUtils;
 	
-	public RendimentoService(Curso curso) {
+	public RendimentoService(Rendimento obj) {
+		Curso curso = obj.getCurso();
 		String nomeArquivo = String.format("%s_%s_%d", curso.getNome().toUpperCase(), curso.getNivel().toUpperCase(), curso.getAno());
 		fileUtils = new FileUtils(nomeArquivo + ".csv");
 	}
@@ -38,13 +39,12 @@ public class RendimentoService implements Service<Rendimento> {
 
 	@Override
 	public void edit(String objectId, Rendimento obj) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void delete(String objectId) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

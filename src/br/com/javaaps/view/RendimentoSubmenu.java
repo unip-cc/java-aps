@@ -17,8 +17,6 @@ import br.com.javaaps.services.exceptions.ValidacaoException;
 import br.com.javaaps.util.ConsoleUtils;
 
 public class RendimentoSubmenu extends Submenu {
-
-	private RendimentoService rendimentoService = null;
 	
 	private final CursoService cursoService = new CursoService();
 	private final AlunoService alunoService = new AlunoService();
@@ -102,7 +100,7 @@ public class RendimentoSubmenu extends Submenu {
 			rendimento = new Rendimento(aluno, curso, Arrays.asList(notaNP1, notaNP2, notaSUB, notaExame));
 			
 			// Grava rendimento na base de dados
-			new RendimentoService(curso).save(rendimento);
+			new RendimentoService(rendimento).save(rendimento);
 			
 			ConsoleUtils.showInfo(String.format("O rendimento do aluno %s foi gravado com sucesso!", rendimento.getAluno().getNome()));
 		} catch (ObjetoNaoEncontradoException | ValidacaoException ex) {
