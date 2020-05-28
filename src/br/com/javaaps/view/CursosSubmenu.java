@@ -128,7 +128,6 @@ public class CursosSubmenu extends Submenu {
 			// Carrega os rendimentos em memória
 			List<Rendimento> rendimentosCurso = new RendimentoService(curso).getByCurso();
 			
-
 			// Lista rendimentos no console
 			rendimentosCurso.forEach(rendimento -> {
 				System.out.println();

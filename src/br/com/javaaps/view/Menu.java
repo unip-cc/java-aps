@@ -14,7 +14,7 @@ public class Menu {
 	}
 	
 	/**
-	 * Exibe o menu inicial da aplica��o
+	 * Exibe o menu inicial da aplicação
 	 */
 	public void show()
 	{
@@ -29,7 +29,7 @@ public class Menu {
 			
 			menu.append("Seja bem vindo ao sistema de gerenciamento da Universidade Amazônia! \n\n");
 			
-			// Defini��o do menu
+			// Definição do menu
 			menu.append(String.format("[%d] Alunos \n", ALUNOS_OPTION));
 			menu.append(String.format("[%d] Cursos \n", CURSOS_OPTION));
 			menu.append(String.format("[%d] Rendimentos \n", RENDIMENTOS_OPTION));
@@ -41,7 +41,7 @@ public class Menu {
 			
 			opcaoEscolhida = ConsoleUtils.tryParseToInt(ConsoleUtils.getValorDigitado());
 			
-			// Realiza o direcionamento, de acordo com a op��o escolhida
+			// Realiza o direcionamento, de acordo com a opção escolhida
 			switch(opcaoEscolhida) {
 				case ALUNOS_OPTION:
 					submenu = new AlunosSubmenu();
@@ -52,8 +52,6 @@ public class Menu {
 				case RENDIMENTOS_OPTION:
 					submenu = new RendimentoSubmenu();
 					break;
-				default:
-					
 			}
 			
 			if (submenu != null) {

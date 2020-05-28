@@ -1,9 +1,16 @@
 package br.com.javaaps.view;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 import br.com.javaaps.models.Aluno;
+import br.com.javaaps.models.Curso;
+import br.com.javaaps.models.Rendimento;
 import br.com.javaaps.services.AlunoService;
+import br.com.javaaps.services.CursoService;
+import br.com.javaaps.services.RendimentoService;
 import br.com.javaaps.services.exceptions.ObjetoJaExisteException;
 import br.com.javaaps.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.javaaps.services.exceptions.ValidacaoException;
@@ -12,6 +19,7 @@ import br.com.javaaps.util.ConsoleUtils;
 public class AlunosSubmenu extends Submenu {
 	
 	private AlunoService alunoService = new AlunoService();
+	private CursoService cursoService = new CursoService();
 	
 	private final int LISTAR_OPTION = 1;
 	private final int CADASTRAR_OPTION = 2;
@@ -28,7 +36,7 @@ public class AlunosSubmenu extends Submenu {
 			System.out.println("\n\n");
 			StringBuilder menu = new StringBuilder();
 			
-			// Defini��o do menu
+			// Definição do menu
 			menu.append(String.format("[%d] Listar alunos \n", LISTAR_OPTION));
 			menu.append(String.format("[%d] Cadastrar aluno \n", CADASTRAR_OPTION));
 			menu.append(String.format("[%d] Editar aluno \n", EDITAR_OPTION));
@@ -54,6 +62,9 @@ public class AlunosSubmenu extends Submenu {
 					break;
 				case REMOVER_OPTION:
 					deletarAluno();
+					break;
+				case RELATORIO_OPTION:
+					exibirRelatorioRendimento();
 					break;
 			}
 		}
@@ -98,7 +109,7 @@ public class AlunosSubmenu extends Submenu {
 	}
 	
 	/**
-	 * Edita um aluno j� existente
+	 * Edita um aluno já existente
 	 */
 	private void editarAluno() {
 		System.out.println();
@@ -129,7 +140,7 @@ public class AlunosSubmenu extends Submenu {
 	}
 	
 	/**
-	 * Remove um aluno j� existente
+	 * Remove um aluno já existente
 	 */
 	private void deletarAluno() {
 		System.out.println();
@@ -144,6 +155,34 @@ public class AlunosSubmenu extends Submenu {
 			alunoService.delete(id);
 			
 			ConsoleUtils.showInfo(String.format("Aluno %s removido com sucesso!", aluno.getNome()));
+		} catch (ObjetoNaoEncontradoException ex) {
+			ConsoleUtils.showError(ex.getMessage());
+		}
+	}
+	
+	/**
+	 * Exibe o relatório de rendimento em todos os cursos em que o aluno está inscrito
+	 */
+	private void exibirRelatorioRendimento() {
+		List<Rendimento> rendimentosAluno = new ArrayList<Rendimento>();
+		Set<Curso> cursos = cursoService.load();
+		
+		Aluno aluno;
+		
+		try {
+			System.out.print("Digite o identificador do aluno que deseja visualizar o histórico: ");
+			aluno = alunoService.getById(ConsoleUtils.getValorDigitado());
+			
+			// Para cada curso existente retorna o rendimento do aluno para aquele curso..
+			cursos.forEach(curso -> {
+				rendimentosAluno.addAll(new RendimentoService(curso).getByCursoAndAlunoId(aluno.getId()));
+			});
+			
+			// Exibe os rendimentos do aluno
+			rendimentosAluno.forEach((rendimento) -> {
+				System.out.println();
+				System.out.println(rendimento.toString(true, false));
+			});
 		} catch (ObjetoNaoEncontradoException ex) {
 			ConsoleUtils.showError(ex.getMessage());
 		}

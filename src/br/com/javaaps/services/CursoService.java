@@ -32,7 +32,7 @@ public class CursoService implements Service<Curso> {
   }
 
   /**
-   * Retorna um curso através do seu nome
+   * Retorna uma lista de cursos a partir do seu nome
    */
   public Set<Curso> getByNome(String nome) {
     return load().stream().filter(a -> a.getNome().equals(nome)).collect(Collectors.toSet());

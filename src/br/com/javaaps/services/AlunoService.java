@@ -13,14 +13,14 @@ import br.com.javaaps.services.exceptions.ValidacaoException;
 import br.com.javaaps.util.FileUtils;
 
 /**
- * Classe respons�vel por centralizar as opera��es relacionado ao cadastro de aluno
+ * Classe responsável por centralizar as operações relacionado ao cadastro de aluno
  */
 public class AlunoService implements Service<Aluno> {
 	
 	private final FileUtils fileUtils = new FileUtils("alunos.csv");
 	
 	/**
-	 * Retorna uma lista de alunos que est�o armazenados na base de dados 
+	 * Retorna uma lista de alunos que estão armazenados na base de dados 
 	 */
 	@Override
 	public Set<Aluno> load() {
@@ -61,7 +61,7 @@ public class AlunoService implements Service<Aluno> {
 	}
 	
 	/**
-	 * Edita um aluno j� existente
+	 * Edita um aluno já existente
 	 */
 	@Override
 	public void edit(String objectId, Aluno aluno) {
