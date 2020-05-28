@@ -13,6 +13,13 @@ public class AlunosSubmenu extends Submenu {
 	
 	private AlunoService alunoService = new AlunoService();
 	
+	private final int LISTAR_OPTION = 1;
+	private final int CADASTRAR_OPTION = 2;
+	private final int EDITAR_OPTION = 3;
+	private final int REMOVER_OPTION = 4;
+	private final int RELATORIO_OPTION = 5;
+	private final int VOLTAR_OPTION = 6;
+	
 	@Override
 	public void showSubmenu() {
 		int opcaoEscolhida = 0;
@@ -26,6 +33,7 @@ public class AlunosSubmenu extends Submenu {
 			menu.append(String.format("[%d] Cadastrar aluno \n", CADASTRAR_OPTION));
 			menu.append(String.format("[%d] Editar aluno \n", EDITAR_OPTION));
 			menu.append(String.format("[%d] Remover aluno \n", REMOVER_OPTION));
+			menu.append(String.format("[%d] Relatório de rendimento \n", RELATORIO_OPTION));
 			menu.append(String.format("[%d] VOLTAR \n\n", VOLTAR_OPTION));
 			
 			menu.append("Escolha uma opção: ");
@@ -102,7 +110,7 @@ public class AlunosSubmenu extends Submenu {
 		id = ConsoleUtils.getValorDigitado();
 		
 		try {
-			Aluno aluno = alunoService.getByNome(id);
+			Aluno aluno = alunoService.getById(id);
 			
 			System.out.println("Dados do aluno => " + aluno.toString());
 			
@@ -130,7 +138,7 @@ public class AlunosSubmenu extends Submenu {
 		String id = ConsoleUtils.getValorDigitado();
 		
 		try {
-			Aluno aluno = alunoService.getByNome(id);
+			Aluno aluno = alunoService.getById(id);
 			
 			// Remove aluno da base de dados
 			alunoService.delete(id);

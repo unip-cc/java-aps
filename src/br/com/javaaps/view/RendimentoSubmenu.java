@@ -1,8 +1,6 @@
 package br.com.javaaps.view;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import br.com.javaaps.models.Aluno;
 import br.com.javaaps.models.Curso;
@@ -20,6 +18,10 @@ public class RendimentoSubmenu extends Submenu {
 	
 	private final CursoService cursoService = new CursoService();
 	private final AlunoService alunoService = new AlunoService();
+
+	private final int CADASTRAR_OPTION = 1;
+	private final int REMOVER_OPTION = 2;
+	private final int VOLTAR_OPTION = 3;
 	
 	@Override
 	public void showSubmenu() {
@@ -67,7 +69,7 @@ public class RendimentoSubmenu extends Submenu {
 			Nota notaNP1, notaNP2, notaSUB, notaExame;
 			
 			System.out.print("Digite o identificador do aluno: ");
-			aluno = alunoService.getByNome(ConsoleUtils.getValorDigitado());
+			aluno = alunoService.getById(ConsoleUtils.getValorDigitado());
 			
 			System.out.print("Digite o nome do curso: ");
 			nomeCurso = ConsoleUtils.getValorDigitado();
@@ -100,7 +102,7 @@ public class RendimentoSubmenu extends Submenu {
 			rendimento = new Rendimento(aluno, curso, Arrays.asList(notaNP1, notaNP2, notaSUB, notaExame));
 			
 			// Grava rendimento na base de dados
-			new RendimentoService(rendimento).save(rendimento);
+			new RendimentoService(rendimento.getCurso()).save(rendimento);
 			
 			ConsoleUtils.showInfo(String.format("O rendimento do aluno %s foi gravado com sucesso!", rendimento.getAluno().getNome()));
 		} catch (ObjetoNaoEncontradoException | ValidacaoException ex) {

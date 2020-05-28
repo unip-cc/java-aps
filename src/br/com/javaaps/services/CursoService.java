@@ -47,7 +47,7 @@ public class CursoService implements Service<Curso> {
    */
   public Curso getByNomeAndNivelAndAno(String nome, String nivel, int ano) {
 	  return load().stream().filter(c -> c.getNome().equals(nome) && c.getNivel().equals(nivel) && c.getAno() == ano).findFirst()
-		.orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum curso encontrado com os par�metros informados!"));
+		.orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum curso encontrado com os parâmetros informados!"));
   }
   
   /**

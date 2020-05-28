@@ -35,9 +35,9 @@ public class AlunoService implements Service<Aluno> {
 	}
 	
 	/**
-	 * Retorna um aluno atrav�s do seu identificador (id)
+	 * Retorna um aluno através do seu identificador (id)
 	 */
-	public Aluno getByNome(String id) {
+	public Aluno getById(String id) {
 		return load().stream().filter(a -> a.getId().equals(id)).findFirst()
 			.orElseThrow(() -> new ObjetoNaoEncontradoException(String.format("Nenhum aluno encontrado com o identificador %s!", id)));
 	}

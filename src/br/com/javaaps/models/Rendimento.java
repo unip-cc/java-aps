@@ -1,6 +1,7 @@
 package br.com.javaaps.models;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Rendimento {
 	
@@ -20,6 +21,10 @@ public class Rendimento {
 	 * @return
 	 */
 	public boolean isAprovado() {
+		return getMedia() >= 5;
+	}
+	
+	public double getMedia() {
 		double mediaInicial = 0;
 		
 		double notaNP1 = 0;
@@ -52,11 +57,11 @@ public class Rendimento {
 		
 		mediaInicial = (notaNP1 + notaNP2) / 2;
 	
-		// Calcula aprova��o
+		// Cálculo da média final
 		if (mediaInicial >= curso.getMedia()) {
-			return true;
+			return mediaInicial;
 		} else {
-			return ((mediaInicial + notaExame) / 2) >= 5;
+			return (mediaInicial + notaExame) / 2;
 		}
 	}
 
@@ -94,5 +99,27 @@ public class Rendimento {
 		}
 		
 		return csv;
+	}
+	
+	public String toString(boolean imprimeCurso, boolean imprimeAluno) {
+		StringBuilder obj = new StringBuilder();
+		Curso curso = getCurso();
+		Aluno aluno = getAluno();
+		
+		if (imprimeCurso) {
+			obj.append(String.format("Curso: %s - Nível: %s - Ano: %d \n", curso.getNome(), curso.getNivel(), curso.getAno()));
+		}
+		
+		if (imprimeAluno) {
+			obj.append(String.format("Aluno: %s \n", aluno.getNome()));
+		}
+		
+		obj.append(String.format("Notas (NP1, NP2, SUB e Exame): %s \n", String.join(" - ", 
+				getNotas().stream().map(nota -> String.valueOf(nota.getValor())).collect(Collectors.toList()))));
+		
+		obj.append(String.format("Média: %.2f \n", getMedia()));
+		obj.append(String.format("Status: %s", isAprovado() ? "APROVADO" : "REPROVADO"));
+		
+		return obj.toString();
 	}
 }
