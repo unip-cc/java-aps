@@ -90,7 +90,7 @@ public class CursosSubmenu extends Submenu {
 	    	System.out.print("Nome: ");
 	    	nome = ConsoleUtils.getValorDigitado().trim();
 	
-	    	System.out.print("Nível: ");
+	    	System.out.print("Nível (Graduação / Pós graduação): ");
 	    	nivel = ConsoleUtils.getValorDigitado().trim();
 	
 	    	System.out.print("Ano: ");

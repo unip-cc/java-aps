@@ -1,6 +1,9 @@
 package br.com.javaaps.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,6 +60,8 @@ public class CursoService implements Service<Curso> {
   public void save(Curso curso) {
     if (isValid(curso)) {
       if (getByNome(curso.getNome()).isEmpty()) {
+    	curso.setAno(curso.getAno() == 0 ? Calendar.getInstance().get(Calendar.YEAR) : curso.getAno());  
+    	  
         fileUtils.appendToFile(curso.toCSV());
       } else {
         throw new ObjetoJaExisteException(String.format("Já existe um curso cadastrado com o nome %s!", curso.getNome()));
@@ -74,6 +79,8 @@ public class CursoService implements Service<Curso> {
     if (isValid(curso)) {
       List<String> fileContent = new ArrayList<String>();
 
+      curso.setAno(curso.getAno() == 0 ? Calendar.getInstance().get(Calendar.YEAR) : curso.getAno());
+      
       for(Curso cursoAtual : load()) {
         if (cursoAtual.getNome().equals(objectNome)) {
           cursoAtual = curso;
@@ -111,7 +118,13 @@ public class CursoService implements Service<Curso> {
    */
   @Override
   public boolean isValid(Curso obj) {
-    return !obj.getNome().trim().isEmpty() && !obj.getNivel().trim().isEmpty() && obj.getAno() != 0;
+	Set<String> niveisDisponiveis = Arrays.asList("Graduação", "Pós graduação").stream().collect(Collectors.toSet());
+			
+    if (obj.getNome().isBlank() || obj.getNivel().isBlank() || !niveisDisponiveis.contains(obj.getNivel())) {
+    	return false;
+    }
+    
+    return true;
   }
 
 }
