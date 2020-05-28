@@ -17,10 +17,8 @@ public class CursosSubmenu extends Submenu {
 
 	private final int LISTAR_OPTION = 1;
 	private final int CADASTRAR_OPTION = 2;
-	private final int EDITAR_OPTION = 3;
-	private final int REMOVER_OPTION = 4;
-	private final int RELATORIO_OPTION = 5;
-	private final int VOLTAR_OPTION = 6;
+	private final int RELATORIO_OPTION = 4;
+	private final int VOLTAR_OPTION = 5;
   
 	@Override
 	public void showSubmenu() {
@@ -33,8 +31,6 @@ public class CursosSubmenu extends Submenu {
 			// Definição do menu
 			menu.append(String.format("[%d] Listar cursos \n", LISTAR_OPTION));
 			menu.append(String.format("[%d] Cadastrar curso \n", CADASTRAR_OPTION));
-			menu.append(String.format("[%d] Editar curso \n", EDITAR_OPTION));
-			menu.append(String.format("[%d] Remover curso \n", REMOVER_OPTION));
 			menu.append(String.format("[%d] Relatório de rendimento \n", RELATORIO_OPTION));
 			menu.append(String.format("[%d] VOLTAR \n\n", VOLTAR_OPTION));
 
@@ -50,12 +46,6 @@ public class CursosSubmenu extends Submenu {
 					break;
 		        case CADASTRAR_OPTION:
 		        	cadastrarCurso();
-		        	break;
-		        case EDITAR_OPTION:
-		        	///
-		        	break;
-		        case REMOVER_OPTION:
-		        	///
 		        	break;
 		        case RELATORIO_OPTION:
 		        	exibirRelatorioRendimento();
