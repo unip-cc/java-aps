@@ -51,19 +51,19 @@ public class CursoService implements Service<Curso> {
 	  return load().stream().filter(c -> c.getNome().equals(nome) && c.getNivel().equals(nivel) && c.getAno() == ano).findFirst()
 		.orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum curso encontrado com os parâmetros informados!"));
   }
-  
+    
   /**
    * Realiza o cadastro de um novo curso ba base dados
    */
   @Override
   public void save(Curso curso) {
     if (isValid(curso)) {
-      if (getByNome(curso.getNome()).isEmpty()) {
+      if (!exists(curso.getNome(), curso.getNivel(), curso.getAno())) {
     	curso.setAno(curso.getAno() == 0 ? Calendar.getInstance().get(Calendar.YEAR) : curso.getAno());  
     	  
         fileUtils.appendToFile(curso.toCSV());
       } else {
-        throw new ObjetoJaExisteException(String.format("Já existe um curso cadastrado com o nome %s!", curso.getNome()));
+        throw new ObjetoJaExisteException("Já existe um curso cadastrado com estes dados!");
       }
     } else {
       throw new ValidacaoException("Nem todos os campos foram preenchidos corretamente. Verifique");
@@ -126,4 +126,19 @@ public class CursoService implements Service<Curso> {
     return true;
   }
 
+  /**
+   * Verifica se um dado curso já está cadastrado
+   * @param nome
+   * @param nivel
+   * @param ano
+   * @return
+   */
+  private boolean exists(String nome, String nivel, int ano) {
+	 try {
+		 getByNomeAndNivelAndAno(nome, nivel, ano);
+		 return true;
+	 } catch (ObjetoNaoEncontradoException ex) {
+		 return false;
+	 }
+  }
 }

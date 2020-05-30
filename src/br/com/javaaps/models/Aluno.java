@@ -46,6 +46,6 @@ public class Aluno {
 	}
 	
 	public String toCSV() {
-		return getId() + ";" + getNome();
+		return getId() + "," + getNome();
 	}
 }

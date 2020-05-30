@@ -20,8 +20,7 @@ public class RendimentoSubmenu extends Submenu {
 	private final AlunoService alunoService = new AlunoService();
 
 	private final int CADASTRAR_OPTION = 1;
-	private final int REMOVER_OPTION = 2;
-	private final int VOLTAR_OPTION = 3;
+	private final int VOLTAR_OPTION = 2;
 	
 	@Override
 	public void showSubmenu() {
@@ -33,7 +32,6 @@ public class RendimentoSubmenu extends Submenu {
 			
 			// Definição do menu
 			menu.append(String.format("[%d] Incluir rendimento\n", CADASTRAR_OPTION));
-			menu.append(String.format("[%d] Remover rendimento\n", REMOVER_OPTION));
 			menu.append(String.format("[%d] Voltar\n\n\n", VOLTAR_OPTION));
 			
 			menu.append("Escolha uma opção: ");
@@ -45,9 +43,6 @@ public class RendimentoSubmenu extends Submenu {
 			switch(opcaoEscolhida) {
 				case CADASTRAR_OPTION:
 					cadastrarRendimento();
-					break;
-				case REMOVER_OPTION:
-					removerRendimento();
 					break;
 			}
 		}
@@ -108,12 +103,5 @@ public class RendimentoSubmenu extends Submenu {
 		} catch (ObjetoNaoEncontradoException | ValidacaoException ex) {
 			ConsoleUtils.showError(ex.getMessage());
 		}
-	}
-	
-	/**
-	 * Remove um rendimento existente
-	 */
-	private void removerRendimento() {
-		
 	}
 }

@@ -95,7 +95,7 @@ public class Rendimento {
 		csv += getAluno().getId();
 		
 		for(Nota nota : getNotas()) {
-			csv += ";" + nota.getValor();
+			csv += "," + nota.getValor();
 		}
 		
 		return csv;

@@ -44,7 +44,7 @@ public class Curso {
   }
 
   public String toCSV() {
-    return getNome() + ";" + getNivel() + ";" + getAno();
+    return getNome() + "," + getNivel() + "," + getAno();
   }
   
   public boolean isGraduacao() {
