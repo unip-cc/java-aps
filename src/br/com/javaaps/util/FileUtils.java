@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Classe gen�rica criada para realizar a manipula��o dos arquivos CSV (leitura e escrita)
+ * Classe genérica criada para realizar a manipulação dos arquivos CSV (leitura e escrita)
  */
 public class FileUtils {
 
@@ -29,7 +29,7 @@ public class FileUtils {
 	}
 
 	/**
-	 * Retorna o conte�do do arquivo CSV (cada �ndice da lista representa uma linha do arquivo)
+	 * Retorna o conteúdo do arquivo CSV (cada índice da lista representa uma linha do arquivo)
 	 * @return
 	 */
 	public List<String> getFileContent() {
@@ -51,7 +51,7 @@ public class FileUtils {
 	}
 	
 	/**
-	 * Escreve no arquivo (remove todo o conte�do anterior)
+	 * Escreve no arquivo (remove todo o conteúdo anterior)
 	 * @param lines
 	 */
 	public void write(Collection<String> lines) {
