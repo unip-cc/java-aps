@@ -8,7 +8,7 @@ public class ConsoleUtils {
 	private static Scanner scan;
 
 	/**
-	 * Solicita a digita��o do usu�rio no console
+	 * Solicita a digitação do usuário no console
 	 * @return
 	 */
 	public static String getValorDigitado() {
