@@ -27,7 +27,7 @@ public class AlunoService implements Service<Aluno> {
 		Set<Aluno> dados = new HashSet<Aluno>();
 		
 		for(String valor : fileUtils.getFileContent()) {
-			String[] linha = valor.split(";");
+			String[] linha = valor.split(",");
 			dados.add(new Aluno(linha[0], linha[1]));
 		}
 		

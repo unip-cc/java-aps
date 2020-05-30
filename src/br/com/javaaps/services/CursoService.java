@@ -26,7 +26,7 @@ public class CursoService implements Service<Curso> {
     Set<Curso> dados = new HashSet<Curso>();
 
     for(String valor : fileUtils.getFileContent()) {
-      String[] linha = valor.split(";");
+      String[] linha = valor.split(",");
       dados.add(new Curso(linha[0], linha[1], Integer.parseInt(linha[2])));
     }
 

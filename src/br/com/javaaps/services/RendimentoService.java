@@ -40,7 +40,7 @@ public class RendimentoService implements Service<Rendimento> {
 		List<Rendimento> dados = new ArrayList<Rendimento>();
 		
 		for(String linha : fileUtils.getFileContent()) {
-			String[] linhaSplit = linha.split(";");
+			String[] linhaSplit = linha.split(",");
 			
 			dados.add(new Rendimento(alunoService.getById(linhaSplit[0]), this.curso,
 				Arrays.asList(
