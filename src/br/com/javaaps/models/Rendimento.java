@@ -17,7 +17,7 @@ public class Rendimento {
 	}
 	
 	/**
-	 * Retorna se o aluno est� aprovado ou n�o
+	 * Retorna se o aluno está aprovado ou não
 	 * @return
 	 */
 	public boolean isAprovado() {
